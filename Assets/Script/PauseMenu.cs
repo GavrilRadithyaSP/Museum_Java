@@ -1,0 +1,45 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class PauseMenu : MonoBehaviour
+{
+    [SerializeField] GameObject pauseMenu;
+
+    public void Pause(){
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Resume(){
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void Home(){
+        SceneManager.LoadScene("Lobby");
+        Time.timeScale = 1;
+    }
+
+    public void Restart(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }
+
+    public void Back(){
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
+    }
+
+    public void NextLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        UnlockNewLevel();
+    }
+
+    void UnlockNewLevel(){
+        if(SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex")){
+            PlayerPrefs.SetInt("ReachedIndex",SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("UnlockedLevel",PlayerPrefs.GetInt("Unlockedlevel", 1)+ 1);
+            PlayerPrefs.Save();
+        }
+    }
+}

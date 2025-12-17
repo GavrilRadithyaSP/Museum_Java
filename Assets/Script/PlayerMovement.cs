@@ -21,9 +21,9 @@ public float moveSpeed = 5f;
         animator.SetBool("Running", isMoving);
 
         if (movement.x < 0)
-            spriteRenderer.flipX = false;
-        else if (movement.x > 0)
             spriteRenderer.flipX = true;
+        else if (movement.x > 0)
+            spriteRenderer.flipX = false;
     }
 
     void FixedUpdate()
